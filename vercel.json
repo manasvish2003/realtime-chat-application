@@ -1,6 +1,9 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/server/api/index.js" }
+    {
+      "source": "/api/(.*)",
+      "destination": "/server/api/index.js"
+    }
   ],
   "builds": [
     {
@@ -12,10 +15,6 @@
       "use": "@vercel/static-build"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.js"
-    }
-  ]
+  "cleanUrls": true,  // Example usage if needed
+  "trailingSlash": false  // Example usage if needed
 }
