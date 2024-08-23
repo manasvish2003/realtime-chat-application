@@ -1,0 +1,21 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/server/api/index.js" }
+  ],
+  "builds": [
+    {
+      "src": "server/api/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    }
+  ]
+}
