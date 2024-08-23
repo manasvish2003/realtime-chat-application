@@ -17,10 +17,6 @@
     {
       "source": "/api/(.*)",
       "destination": "/server/api/index.js"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/client/build/index.html"  // Ensures that all non-API routes serve the React app
     }
   ]
 }
