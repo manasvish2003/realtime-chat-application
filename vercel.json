@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "client/package.json",
-      "use": "@vercel/static-build"
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"  // This should match the output directory of your React app's build
+      }
     },
     {
       "src": "server/api/index.js",
@@ -14,6 +17,10 @@
     {
       "source": "/api/(.*)",
       "destination": "/server/api/index.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/client/build/index.html"  // Ensures that all non-API routes serve the React app
     }
   ]
 }
