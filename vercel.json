@@ -1,29 +1,24 @@
 {
-  "name": "realtime-chat-application",
-  "projects": [
+  "version": 2,
+  "builds": [
     {
-      "name": "client",
-      "src": "client",
-      "buildCommand": "npm run build",
-      "outputDirectory": "client/build"
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "client/build" }
     },
     {
-      "name": "server",
-      "src": "server",
-      "buildCommand": "npm install",
-      "outputDirectory": "server"
+      "src": "server/index.js",
+      "use": "@vercel/node"
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/server/$1"
+      "src": "/api/(.*)",
+      "dest": "/server/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/build/$1"
     }
-  ],
-  "functions": {
-    "api/index.js": {
-      "memory": 128,
-      "maxDuration": 10
-    }
-  }
+  ]
 }
