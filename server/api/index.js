@@ -5,7 +5,7 @@ const http = require('http').Server(app);
 const PORT = process.env.PORT || 4000;
 const socketIO = require('socket.io')(http, {
     cors: {
-        origin: "http://localhost:3000"
+        origin: "*"
     }
 });
 
@@ -13,7 +13,8 @@ app.use(cors())
 let users = []
 
 socketIO.on('connection', (socket) => {
-    console.log(`⚡: ${socket.id} user just connected!`)  
+    console.log(`⚡: ${socket.id} user just connected!`)
+
     socket.on("message", data => {
       socketIO.emit("messageResponse", data)
     })
@@ -39,7 +40,16 @@ app.get("/api", (req, res) => {
   res.json({message: "Hello"})
 });
 
-   
+module.exports = (req, res) => {
+    const server = http.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+
+    res.socket.server.io = socketIO;
+    socketIO.attach(res.socket.server);
+    res.end();
+};   
+
 http.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
